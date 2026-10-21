@@ -1,0 +1,39 @@
+name: Local vTuner
+version: "1.0.0"
+slug: local_vtuner
+description: Замена сервиса vTuner для интернет-радио старых ресиверов Pioneer (VSX-527 и др.)
+url: https://github.com/alx2080/vTuner_Local/tree/main/local_vtuner
+arch:
+  - aarch64
+  - amd64
+init: false
+host_network: true
+startup: services
+webui: "http://[HOST]:[PORT:80]/"
+ports:
+  80/tcp: 80
+  53/udp: 53
+options:
+  stations:
+    - name: "Radio Paradise"
+      url: "http://stream.radioparadise.com/mp3-128"
+      folder: ""
+  radio_browser: true
+  radio_browser_country: "Ukraine"
+  dns_server: true
+  dns_upstream: "1.1.1.1"
+  transliterate: false
+  host_ip: ""
+  log_level: info
+schema:
+  stations:
+    - name: str
+      url: str
+      folder: str?
+  radio_browser: bool
+  radio_browser_country: str?
+  dns_server: bool
+  dns_upstream: str
+  transliterate: bool
+  host_ip: str?
+  log_level: list(debug|info|warning)

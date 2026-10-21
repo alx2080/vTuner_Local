@@ -1,0 +1,24 @@
+configuration:
+  stations:
+    name: My stations
+    description: "Station list: name, url (http/https stream or .m3u/.pls playlist), folder (optional)."
+  radio_browser:
+    name: radio-browser.info catalogue
+    description: Show the radio-browser.info catalogue (popular, countries, genres, search) on the receiver.
+  radio_browser_country:
+    name: Your country
+    description: Country name in English for a dedicated menu entry, e.g. Ukraine.
+  dns_server:
+    name: Built-in DNS
+    description: Answer pioneer.vtuner.com with this server's address. Turn off if AdGuard Home or Pi-hole runs on the same host.
+  dns_upstream:
+    name: Upstream DNS
+    description: Where all other DNS queries are forwarded.
+  transliterate:
+    name: Transliteration
+    description: Write Cyrillic in Latin letters if the receiver display shows boxes.
+  host_ip:
+    name: Server IP
+    description: Leave empty to detect automatically.
+  log_level:
+    name: Log level

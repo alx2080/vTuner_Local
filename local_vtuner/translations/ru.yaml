@@ -1,0 +1,24 @@
+configuration:
+  stations:
+    name: Мои станции
+    description: "Список станций: name — название, url — ссылка на поток (http/https, .m3u/.pls), folder — папка (можно пусто)."
+  radio_browser:
+    name: Каталог radio-browser.info
+    description: Показывать в меню ресивера каталог тысяч станций (популярные, страны, жанры, поиск).
+  radio_browser_country:
+    name: Своя страна в каталоге
+    description: Название страны по-английски для отдельного пункта меню, например Ukraine.
+  dns_server:
+    name: Встроенный DNS
+    description: Отвечать на pioneer.vtuner.com адресом этого сервера. Тогда в ресивере достаточно указать IP Home Assistant как DNS. Выключите, если используете AdGuard Home/Pi-hole на этом же сервере.
+  dns_upstream:
+    name: Внешний DNS
+    description: Куда пересылать остальные DNS-запросы.
+  transliterate:
+    name: Транслитерация
+    description: Писать кириллицу латиницей, если дисплей ресивера показывает вместо букв квадратики.
+  host_ip:
+    name: IP сервера
+    description: Оставьте пустым — определится сам. Заполните, если у Home Assistant несколько сетей.
+  log_level:
+    name: Уровень журнала

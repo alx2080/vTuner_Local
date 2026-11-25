@@ -314,6 +314,51 @@ def resolve_playlist(url, depth=0):
     return url
 
 
+STATUS_TEXT = {
+    "en": {
+        "lang": "en",
+        "running": "Local vTuner is running",
+        "ip": "Server IP",
+        "dns": "DNS server",
+        "on": "on",
+        "off": "off",
+        "hint": "Point <code>pioneer.vtuner.com</code> at this IP "
+                "(or enter %s as the DNS in the receiver's network settings).",
+        "check": "Check the menu as a receiver",
+        "folder": "Folder",
+        "station": "Station",
+        "stream": "Stream",
+        "relay": "relay",
+        "direct": "direct",
+    },
+    "uk": {
+        "lang": "uk",
+        "running": "Local vTuner працює",
+        "ip": "IP сервера",
+        "dns": "DNS-сервер",
+        "on": "увімкнено",
+        "off": "вимкнено",
+        "hint": "Спрямуйте <code>pioneer.vtuner.com</code> на цей IP "
+                "(або вкажіть %s як DNS у мережевих налаштуваннях ресивера).",
+        "check": "Перевірити меню як ресивер",
+        "folder": "Тека",
+        "station": "Станція",
+        "stream": "Потік",
+        "relay": "ретрансляція",
+        "direct": "напряму",
+    },
+}
+
+
+def page_language(accept):
+    """First language of the Accept-Language header we have, else English."""
+    for part in accept.lower().split(","):
+        lang = part.split(";")[0].strip().split("-")[0]
+        if lang in STATUS_TEXT:
+            return lang
+    return "en"
+
+
 class Handler(BaseHTTPRequestHandler):
     server_version = "Microsoft-IIS/6.0"  # what the real vTuner reported
     protocol_version = "HTTP/1.1"
@@ -528,23 +573,26 @@ class Handler(BaseHTTPRequestHandler):
 
     # ---- status page for the browser
     def status_page(self):
+        t = STATUS_TEXT[page_language(self.headers.get("Accept-Language", ""))]
         rows = "".join(
             "<tr><td>%s</td><td>%s</td><td><a href='%s'>%s</a></td></tr>"
             % (x(s["folder"]), x(s["name"]), x(play_url(s)),
-               "relay" if needs_proxy(s["url"]) else "direct")
+               t["relay"] if needs_proxy(s["url"]) else t["direct"])
             for s in my_stations()
         )
         html = (
-            "<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width'>"
+            "<!doctype html><html lang='%s'><meta charset=utf-8>"
+            "<meta name=viewport content='width=device-width'>"
             "<title>Local vTuner</title><style>body{font-family:sans-serif;margin:16px}"
             "td,th{padding:4px 8px;border-bottom:1px solid #ccc;text-align:left}</style>"
-            "<h2>Local vTuner работает</h2>"
-            "<p>IP сервера: <b>%s</b>. DNS-сервер: <b>%s</b>.</p>"
-            "<p>Направьте <code>pioneer.vtuner.com</code> на этот IP "
-            "(или укажите %s как DNS в настройках сети ресивера).</p>"
-            "<p><a href='/setupapp/pioneer/asp/BrowseXML/loginXML.asp?vt=1'>Проверить меню как ресивер</a></p>"
-            "<table><tr><th>Папка</th><th>Станция</th><th>Поток</th></tr>%s</table>"
-            % (x(HOST_IP), "включён" if OPTS["dns_server"] else "выключен", x(HOST_IP), rows)
+            % t["lang"]
+            + "<h2>%s</h2>" % t["running"]
+            + "<p>%s: <b>%s</b>. %s: <b>%s</b>.</p>"
+            % (t["ip"], x(HOST_IP), t["dns"], t["on"] if OPTS["dns_server"] else t["off"])
+            + "<p>%s</p>" % (t["hint"] % x(HOST_IP))
+            + "<p><a href='/setupapp/pioneer/asp/BrowseXML/loginXML.asp?vt=1'>%s</a></p>" % t["check"]
+            + "<table><tr><th>%s</th><th>%s</th><th>%s</th></tr>%s</table>"
+            % (t["folder"], t["station"], t["stream"], rows)
         )
         self.send_text(html)
 

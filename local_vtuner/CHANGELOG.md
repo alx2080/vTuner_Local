@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- The status page is in English or Ukrainian, following the browser language. Documentation in English and Ukrainian, add-on icon.
+- Сторінка стану — українською або англійською, за мовою браузера. Документація українською та англійською, значок додатка.
+
 ## 1.0.1
 
 - Fixed installation on new Home Assistant versions (build error "base name ($BUILD_FROM) should not be blank").

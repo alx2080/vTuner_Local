@@ -1,7 +1,11 @@
 # Changelog
 
 ## 1.0.1
-- Исправлена установка на новых версиях Home Assistant (ошибка сборки «base name ($BUILD_FROM) should not be blank»).
+
+- Fixed installation on new Home Assistant versions (build error "base name ($BUILD_FROM) should not be blank").
+- Виправлено встановлення на нових версіях Home Assistant (помилка збирання «base name ($BUILD_FROM) should not be blank»).
 
 ## 1.0.0
-- Первая версия: свои станции, каталог radio-browser.info, ретрансляция HTTPS и плейлистов, встроенный DNS.
+
+- First version: your own stations, the radio-browser.info catalogue, relaying of HTTPS streams and playlists, built-in DNS.
+- Перша версія: власні станції, каталог radio-browser.info, ретрансляція HTTPS-потоків і плейлистів, вбудований DNS.

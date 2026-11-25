@@ -1,58 +1,99 @@
-# Local vTuner — интернет-радио для старых ресиверов Pioneer
+# Local vTuner
 
-Аддон заменяет закрывшийся сервис vTuner. Ресивер (VSX-527 и похожие) по-прежнему
-открывает пункт **Internet Radio**, но меню и станции берёт с вашего Home Assistant.
+[English](#internet-radio-for-old-pioneer-receivers) | [Українська](#інтернет-радіо-для-старих-ресиверів-pioneer)
 
-Что умеет:
-- **My Stations** — ваш список станций из настроек аддона, с папками.
-- **Radio Browser** — каталог radio-browser.info: ваша страна, популярные, страны, жанры.
-- Ретранслирует **HTTPS-потоки и плейлисты .m3u/.pls** как обычный HTTP: старый ресивер сам их не играет.
-- Встроенный **DNS**, который подменяет `pioneer.vtuner.com` на адрес Home Assistant.
+## Internet radio for old Pioneer receivers
 
-## Установка
+The add-on replaces the discontinued vTuner service. The receiver (VSX-527 and similar) still opens **Internet Radio**, but takes the menu and the stations from your Home Assistant.
 
-1. **Настройки → Приложения → Установить приложение → ⋮ → Репозитории**
-   (в старых версиях HA раздел называется «Дополнения»). Вставьте
-   `https://github.com/alx2080/vTuner_Local` → **Добавить**.
-2. Найдите **Local vTuner** в магазине → **Установить**. Новые версии появятся как
-   обычное обновление.
-3. На вкладке **Конфигурация** добавьте станции и нажмите **Запустить**.
-4. Откройте веб-интерфейс аддона (`http://IP-Home-Assistant/`) — там видно, что сервер работает.
+What it does:
 
-Порт **80** на Home Assistant должен быть свободен (интерфейс HA на 8123 не мешает).
+- **My Stations** — your own station list from the add-on options, with folders.
+- **Radio Browser** — the radio-browser.info catalogue: your country, popular, countries, genres.
+- Relays **HTTPS streams and .m3u/.pls playlists** as plain HTTP: an old receiver cannot play them by itself.
+- Built-in **DNS** that answers `pioneer.vtuner.com` with the address of Home Assistant.
 
-## Как направить ресивер на аддон
+### Installation
 
-**Вариант А — встроенный DNS (проще всего).**
-На ресивере: **HOME MENU → Network Setup → IP Address/Proxy** → DHCP **OFF**, задайте
-адрес вручную и в поле **DNS** укажите IP вашего Home Assistant. Остальной интернет
-продолжит работать: прочие запросы пересылаются на внешний DNS.
+1. **Settings → Apps → Install app → ⋮ → Repositories** (in older Home Assistant versions the section is called "Add-ons"). Paste `https://github.com/alx2080/vTuner_Local` → **Add**.
+2. Find **Local vTuner** in the store → **Install**. New versions appear as ordinary updates.
+3. On the **Configuration** tab add your stations, then press **Start**.
+4. Open the add-on's web interface (`http://Home-Assistant-IP/`): it shows that the server is running.
 
-**Вариант Б — через роутер, AdGuard Home или Pi-hole.**
-Создайте DNS-запись `pioneer.vtuner.com → IP Home Assistant` и выключите в аддоне
-«Встроенный DNS» (иначе он займёт порт 53, нужный AdGuard).
+Port **80** on Home Assistant must be free (the Home Assistant interface on 8123 does not interfere).
 
-После этого **выньте вилку ресивера из розетки на минуту** (он кэширует адреса), включите,
-выберите вход **NETWORK → Internet Radio**.
+### Pointing the receiver at the add-on
 
-## Станции
+**Option A — the built-in DNS (the easiest).** On the receiver: **HOME MENU → Network Setup → IP Address/Proxy** → DHCP **OFF**, set the address manually and enter the IP of your Home Assistant in the **DNS** field. The rest of the internet keeps working: other queries are forwarded to the upstream DNS.
+
+**Option B — your router, AdGuard Home or Pi-hole.** Create the DNS record `pioneer.vtuner.com → Home Assistant IP` and turn off "Built-in DNS" in the add-on (otherwise it takes port 53, which AdGuard needs).
+
+Then **unplug the receiver from the mains for a minute** (it caches addresses), switch it on and choose the input **NETWORK → Internet Radio**.
+
+### Stations
 
 ```yaml
-- name: Радио Рокс
+- name: Radio Rocks
   url: https://example.com/stream.mp3
-  folder: Рок
-- name: Новости
+  folder: Rock
+- name: News
   url: http://example.com/news.m3u
   folder: ""
 ```
 
-Поддерживаются потоки MP3 и AAC. Потоки HLS (`.m3u8`) ресивер играть не умеет.
+MP3 and AAC streams are supported. The receiver cannot play HLS streams (`.m3u8`).
 
-Если дисплей ресивера показывает квадратики вместо русских букв, включите **Транслитерацию**.
+If the receiver's display shows boxes instead of Cyrillic letters, turn on **Transliteration**.
 
-## Если не работает
+### Troubleshooting
 
-Откройте вкладку **Журнал** аддона и полистайте меню ресивера. Каждый запрос ресивера
-виден в журнале. Если запросов нет — ресивер не дошёл до аддона (проблема DNS).
-Если есть строки `unhandled vTuner request` — пришлите их в
-[Issues](https://github.com/alx2080/vTuner_Local/issues), чтобы добавить поддержку.
+Open the **Log** tab of the add-on and browse the receiver's menu. Every request of the receiver is visible in the log. If there are no requests, the receiver did not reach the add-on (a DNS problem). If there are lines with `unhandled vTuner request`, send them to [Issues](https://github.com/alx2080/vTuner_Local/issues) so that support can be added.
+
+---
+
+## Інтернет-радіо для старих ресиверів Pioneer
+
+Додаток замінює закритий сервіс vTuner. Ресивер (VSX-527 і подібні) так само відкриває пункт **Internet Radio**, але меню й станції бере з вашого Home Assistant.
+
+Що вміє:
+
+- **My Stations** — ваш список станцій із налаштувань додатка, з теками.
+- **Radio Browser** — каталог radio-browser.info: ваша країна, популярні, країни, жанри.
+- Ретранслює **HTTPS-потоки та плейлисти .m3u/.pls** як звичайний HTTP: старий ресивер сам їх не відтворює.
+- Вбудований **DNS**, який відповідає на `pioneer.vtuner.com` адресою Home Assistant.
+
+### Встановлення
+
+1. **Налаштування → Застосунки → Встановити додаток → ⋮ → Репозиторії** (у старих версіях Home Assistant розділ називається «Додатки»). Вставте `https://github.com/alx2080/vTuner_Local` → **Додати**.
+2. Знайдіть **Local vTuner** у магазині → **Встановити**. Нові версії з'являться як звичайне оновлення.
+3. На вкладці **Конфігурація** додайте станції й запустіть додаток.
+4. Відкрийте вебінтерфейс додатка (`http://IP-Home-Assistant/`) — там видно, що сервер працює.
+
+Порт **80** на Home Assistant має бути вільним (інтерфейс HA на 8123 не заважає).
+
+### Як спрямувати ресивер на додаток
+
+**Варіант А — вбудований DNS (найпростіше).** На ресивері: **HOME MENU → Network Setup → IP Address/Proxy** → DHCP **OFF**, задайте адресу вручну, а в полі **DNS** вкажіть IP вашого Home Assistant. Решта інтернету працюватиме й далі: інші запити пересилаються на зовнішній DNS.
+
+**Варіант Б — через роутер, AdGuard Home або Pi-hole.** Створіть DNS-запис `pioneer.vtuner.com → IP Home Assistant` і вимкніть у додатку «Вбудований DNS» (інакше він займе порт 53, потрібний AdGuard).
+
+Після цього **вийміть вилку ресивера з розетки на хвилину** (він кешує адреси), увімкніть і виберіть вхід **NETWORK → Internet Radio**.
+
+### Станції
+
+```yaml
+- name: Радіо Рокс
+  url: https://example.com/stream.mp3
+  folder: Рок
+- name: Новини
+  url: http://example.com/news.m3u
+  folder: ""
+```
+
+Підтримуються потоки MP3 і AAC. Потоки HLS (`.m3u8`) ресивер відтворювати не вміє.
+
+Якщо дисплей ресивера показує квадратики замість кирилиці, увімкніть **Транслітерацію**.
+
+### Якщо не працює
+
+Відкрийте вкладку **Журнал** додатка й погортайте меню ресивера. Кожен запит ресивера видно в журналі. Якщо запитів немає — ресивер не дістався до додатка (проблема DNS). Якщо є рядки `unhandled vTuner request` — надішліть їх в [Issues](https://github.com/alx2080/vTuner_Local/issues), щоб додати підтримку.

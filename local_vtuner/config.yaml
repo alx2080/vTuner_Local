@@ -1,7 +1,7 @@
 name: Local vTuner
 version: "1.0.1"
 slug: local_vtuner
-description: Замена сервиса vTuner для интернет-радио старых ресиверов Pioneer (VSX-527 и др.)
+description: Local replacement for the vTuner service, internet radio for old Pioneer receivers (VSX-527 etc.)
 url: https://github.com/alx2080/vTuner_Local/tree/main/local_vtuner
 arch:
   - aarch64
